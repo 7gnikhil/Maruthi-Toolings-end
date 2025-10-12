@@ -1,6 +1,5 @@
-
-import React from 'react';
-import { PRODUCTS } from '../constants';
+import React, { useState, useEffect } from 'react';
+import { getProducts } from '../api/maruthi-toolings.api';
 import { Product as ProductType } from '../types';
 
 interface ProductsProps {
@@ -33,7 +32,17 @@ const ProductCard: React.FC<{ product: ProductType }> = ({ product }) => {
 };
 
 const Products: React.FC<ProductsProps> = ({ category, title }) => {
-  const filteredProducts = category === 'All' ? PRODUCTS : PRODUCTS.filter(p => p.category === category);
+  const [products, setProducts] = useState<ProductType[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    getProducts(category).then(data => {
+        setProducts(data);
+        setLoading(false);
+    });
+  }, [category]);
+
 
   return (
     <div className="py-12 md:py-16 bg-gray-100">
@@ -42,11 +51,15 @@ const Products: React.FC<ProductsProps> = ({ category, title }) => {
           <h2 className="text-3xl font-bold text-gray-800">{title}</h2>
           <p className="text-gray-600 mt-2">Explore our range of high-precision products and machinery.</p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {filteredProducts.map((product) => (
-            <ProductCard key={product.name} product={product} />
-          ))}
-        </div>
+        {loading ? (
+             <div className="text-center">Loading products...</div>
+        ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {products.map((product) => (
+                <ProductCard key={product.name} product={product} />
+            ))}
+            </div>
+        )}
       </div>
     </div>
   );
