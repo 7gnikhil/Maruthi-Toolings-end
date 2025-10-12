@@ -1,32 +1,38 @@
 import { Product, Service, CareerPost, Update } from '../../types';
-import { PRODUCTS } from '../models/product.model';
-import { SERVICES } from '../models/service.model';
-import { CAREERS } from '../models/career.model';
-import { UPDATES } from '../models/update.model';
+import { ProductModel } from '../models/product.model';
+import { ServiceModel } from '../models/service.model';
+import { CareerModel } from '../models/career.model';
+import { UpdateModel } from '../models/update.model';
+import { connectDB } from '../config/db';
 
 type ProductCategory = 'All' | 'Completed' | 'Ongoing' | 'Tools/Machines';
 
 /**
- * This file simulates a controller in an MVC architecture.
- * It contains the business logic for handling data requests. In a real backend,
- * these functions would be linked to API routes and would interact with a database via the Models.
+ * This file simulates a controller in a Node.js/Express MVC architecture.
+ * These functions are now async and use the simulated Mongoose models to fetch data.
  */
 
-export const getProductsController = (category: ProductCategory): Product[] => {
-    if (category === 'All') {
-        return PRODUCTS;
-    }
-    return PRODUCTS.filter(p => p.category === category);
+// Simulate connecting to the database when the controller is loaded.
+connectDB();
+
+export const getProductsController = async (category: ProductCategory): Promise<Product[]> => {
+    const query = category === 'All' ? {} : { category };
+    // In a real backend, this is how you query the database.
+    const products = await ProductModel.find(query);
+    return products;
 };
 
-export const getServicesController = (): Service[] => {
-    return SERVICES;
+export const getServicesController = async (): Promise<Service[]> => {
+    const services = await ServiceModel.find();
+    return services;
 };
 
-export const getCareersController = (): CareerPost[] => {
-    return CAREERS;
+export const getCareersController = async (): Promise<CareerPost[]> => {
+    const careers = await CareerModel.find();
+    return careers;
 };
 
-export const getUpdatesController = (): Update[] => {
-    return UPDATES;
+export const getUpdatesController = async (): Promise<Update[]> => {
+    const updates = await UpdateModel.find();
+    return updates;
 };

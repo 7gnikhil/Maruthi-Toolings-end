@@ -1,3 +1,4 @@
+import React from 'react';
 
 export type Page = 
   | 'Home'
@@ -11,6 +12,7 @@ export type Page =
   | 'Careers';
 
 export interface Product {
+  _id?: string;
   name: string;
   category: 'Completed' | 'Ongoing' | 'Tools/Machines';
   description: string;
@@ -19,18 +21,21 @@ export interface Product {
 }
 
 export interface Service {
+  _id?: string;
   title: string;
   description: string;
-  icon: React.ElementType;
+  icon: string; // Changed to string to be database-friendly
 }
 
 export interface CareerPost {
+  _id?: string;
   position: string;
   description: string;
   location: string;
 }
 
 export interface Update {
+    _id?: string;
     title: string;
     description: string;
     date: string;
