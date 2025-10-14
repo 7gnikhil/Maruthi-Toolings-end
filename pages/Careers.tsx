@@ -1,18 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { getCareers } from '../api/maruthi-toolings.api';
+import React from 'react';
+import { MOCK_CAREERS_DB } from '../api/mock-data';
 import { CareerPost } from '../types';
 
 const Careers: React.FC = () => {
-    const [careers, setCareers] = useState<CareerPost[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        setLoading(true);
-        getCareers().then(data => {
-            setCareers(data);
-            setLoading(false);
-        });
-    }, []);
+    const careers: CareerPost[] = MOCK_CAREERS_DB;
 
   return (
     <div className="bg-gray-100 py-16 md:py-24">
@@ -24,26 +15,22 @@ const Careers: React.FC = () => {
           </p>
         </div>
 
-        {loading ? (
-            <div className="text-center">Loading career opportunities...</div>
-        ) : (
-            <div className="max-w-4xl mx-auto space-y-6">
-            {careers.map((job, index) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-md transition-shadow duration-300 hover:shadow-xl">
-                    <div className="flex justify-between items-start">
-                        <div>
-                            <h2 className="text-xl font-bold text-blue-800">{job.position}</h2>
-                            <p className="text-sm text-gray-500">{job.location}</p>
-                        </div>
-                        <button className="bg-blue-600 text-white font-semibold py-2 px-5 rounded-md hover:bg-blue-700 transition duration-300">
-                            Apply Now
-                        </button>
+        <div className="max-w-4xl mx-auto space-y-6">
+        {careers.map((job, index) => (
+            <div key={index} className="bg-white p-6 rounded-lg shadow-md transition-shadow duration-300 hover:shadow-xl">
+                <div className="flex justify-between items-start">
+                    <div>
+                        <h2 className="text-xl font-bold text-blue-800">{job.position}</h2>
+                        <p className="text-sm text-gray-500">{job.location}</p>
                     </div>
-                    <p className="text-gray-700 mt-4">{job.description}</p>
+                    <button className="bg-blue-600 text-white font-semibold py-2 px-5 rounded-md hover:bg-blue-700 transition duration-300">
+                        Apply Now
+                    </button>
                 </div>
-            ))}
+                <p className="text-gray-700 mt-4">{job.description}</p>
             </div>
-        )}
+        ))}
+        </div>
 
         <div className="text-center mt-12">
             <p className="text-gray-600">Don't see a role that fits? Send your resume to <a href="mailto:marutitooling@gmail.com" className="text-blue-600 hover:underline font-semibold">marutitooling@gmail.com</a>.</p>

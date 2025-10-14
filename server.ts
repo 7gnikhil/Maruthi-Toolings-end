@@ -1,9 +1,9 @@
-// FIX: Replaced aliased express Request and Response with direct imports to resolve type errors.
-import express, { Express, Request, Response } from 'express';
+// FIX: Changed import to a namespace import to resolve type conflicts and ensure correct Express types are used.
+import * as express from 'express';
 import cors from 'cors';
 import path from 'path';
 import dotenv from 'dotenv';
-import { getProductsHandler, getServicesHandler, getCareersHandler, getUpdatesHandler, createInquiryHandler } from './server/controllers/data.controller';
+import { createInquiryHandler } from './server/controllers/data.controller';
 import { connectDB } from './server/config/db';
 
 const startServer = async () => {
@@ -14,8 +14,8 @@ const startServer = async () => {
     // Connect to MongoDB database and wait for it to succeed
     await connectDB();
 
-    const app: Express = express();
-    const PORT = process.env.PORT || 3001;
+    const app: express.Express = express();
+    const PORT = process.env.PORT || 3000;
 
     // Middleware
     app.use(cors());
@@ -23,10 +23,6 @@ const startServer = async () => {
 
     // API Routes
     app.post('/api/inquiry', createInquiryHandler);
-    app.get('/api/products', getProductsHandler);
-    app.get('/api/services', getServicesHandler);
-    app.get('/api/careers', getCareersHandler);
-    app.get('/api/updates', getUpdatesHandler);
 
     // Serve static files from the React app build directory.
     // In a CommonJS environment, __dirname refers to the directory of the current file.
@@ -36,7 +32,7 @@ const startServer = async () => {
 
     // The "catchall" handler: for any request that doesn't match one above,
     // send back React's index.html file.
-    app.get('*', (req: Request, res: Response) => {
+    app.get('*', (req: express.Request, res: express.Response) => {
       res.sendFile(path.join(clientBuildPath, 'index.html'));
     });
 

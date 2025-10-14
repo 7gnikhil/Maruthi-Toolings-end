@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { getServices } from '../api/maruthi-toolings.api';
+import React from 'react';
+import { MOCK_SERVICES_DB } from '../api/mock-data';
 import { Service } from '../types';
 import { WrenchScrewdriverIcon, CubeTransparentIcon, LightBulbIcon, ShieldCheckIcon } from '../components/icons';
 
@@ -11,16 +11,7 @@ const iconMap: { [key: string]: React.ElementType } = {
 };
 
 const Services: React.FC = () => {
-  const [services, setServices] = useState<Service[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-      setLoading(true);
-      getServices().then(data => {
-          setServices(data);
-          setLoading(false);
-      });
-  }, []);
+  const services: Service[] = MOCK_SERVICES_DB;
 
   return (
     <div className="py-16 md:py-24 bg-gray-100">
@@ -30,9 +21,6 @@ const Services: React.FC = () => {
           <p className="text-lg text-gray-600 mt-2">Comprehensive solutions from design to production.</p>
         </div>
 
-        {loading ? (
-            <div className="text-center">Loading services...</div>
-        ) : (
             <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
             {services.map((service) => {
                 const IconComponent = iconMap[service.icon];
@@ -51,7 +39,6 @@ const Services: React.FC = () => {
                 );
             })}
             </div>
-        )}
       </div>
     </div>
   );
