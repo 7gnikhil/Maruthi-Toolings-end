@@ -1,4 +1,5 @@
-import express, { Express, Request, Response } from 'express';
+// FIX: Aliased Request and Response to avoid conflicts with global types.
+import express, { Express, Request as ExpressRequest, Response as ExpressResponse } from 'express';
 import cors from 'cors';
 import path from 'path';
 import dotenv from 'dotenv';
@@ -33,7 +34,7 @@ app.use(express.static(clientBuildPath));
 
 // The "catchall" handler: for any request that doesn't match one above,
 // send back React's index.html file.
-app.get('*', (req: Request, res: Response) => {
+app.get('*', (req: ExpressRequest, res: ExpressResponse) => {
   res.sendFile(path.join(clientBuildPath, 'index.html'));
 });
 
