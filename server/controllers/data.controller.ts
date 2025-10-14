@@ -1,5 +1,5 @@
-// FIX: Aliased Request and Response to avoid conflicts with global types.
-import { Request as ExpressRequest, Response as ExpressResponse } from 'express';
+// FIX: Replaced aliased express Request and Response with direct imports to resolve type errors.
+import { Request, Response } from 'express';
 import { Product, Service, CareerPost, Update } from '../../types';
 import ProductModel from '../models/product.model';
 import ServiceModel from '../models/service.model';
@@ -38,7 +38,7 @@ const getUpdatesController = async (): Promise<Update[]> => {
 
 // --- Express Route Handlers ---
 
-export const getProductsHandler = async (req: ExpressRequest, res: ExpressResponse) => {
+export const getProductsHandler = async (req: Request, res: Response) => {
     try {
         const category = (req.query.category as ProductCategory) || 'All';
         const products = await getProductsController(category);
@@ -48,7 +48,7 @@ export const getProductsHandler = async (req: ExpressRequest, res: ExpressRespon
     }
 };
 
-export const getServicesHandler = async (req: ExpressRequest, res: ExpressResponse) => {
+export const getServicesHandler = async (req: Request, res: Response) => {
     try {
         const services = await getServicesController();
         res.json(services);
@@ -57,7 +57,7 @@ export const getServicesHandler = async (req: ExpressRequest, res: ExpressRespon
     }
 };
 
-export const getCareersHandler = async (req: ExpressRequest, res: ExpressResponse) => {
+export const getCareersHandler = async (req: Request, res: Response) => {
     try {
         const careers = await getCareersController();
         res.json(careers);
@@ -66,7 +66,7 @@ export const getCareersHandler = async (req: ExpressRequest, res: ExpressRespons
     }
 };
 
-export const getUpdatesHandler = async (req: ExpressRequest, res: ExpressResponse) => {
+export const getUpdatesHandler = async (req: Request, res: Response) => {
     try {
         const updates = await getUpdatesController();
         res.json(updates);
@@ -75,7 +75,7 @@ export const getUpdatesHandler = async (req: ExpressRequest, res: ExpressRespons
     }
 };
 
-export const createInquiryHandler = async (req: ExpressRequest, res: ExpressResponse) => {
+export const createInquiryHandler = async (req: Request, res: Response) => {
     try {
         const { name, email, subject, message } = req.body;
         if (!email || !message) {
