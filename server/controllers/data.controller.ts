@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import * as express from 'express';
 import { Product, Service, CareerPost, Update } from '../../types';
 import ProductModel from '../models/product.model';
 import ServiceModel from '../models/service.model';
@@ -37,7 +37,8 @@ const getUpdatesController = async (): Promise<Update[]> => {
 
 // --- Express Route Handlers ---
 
-export const getProductsHandler = async (req: Request, res: Response) => {
+// FIX: Use express.Request and express.Response to resolve type conflicts.
+export const getProductsHandler = async (req: express.Request, res: express.Response) => {
     try {
         const category = (req.query.category as ProductCategory) || 'All';
         const products = await getProductsController(category);
@@ -47,7 +48,8 @@ export const getProductsHandler = async (req: Request, res: Response) => {
     }
 };
 
-export const getServicesHandler = async (req: Request, res: Response) => {
+// FIX: Use express.Request and express.Response to resolve type conflicts.
+export const getServicesHandler = async (req: express.Request, res: express.Response) => {
     try {
         const services = await getServicesController();
         res.json(services);
@@ -56,7 +58,8 @@ export const getServicesHandler = async (req: Request, res: Response) => {
     }
 };
 
-export const getCareersHandler = async (req: Request, res: Response) => {
+// FIX: Use express.Request and express.Response to resolve type conflicts.
+export const getCareersHandler = async (req: express.Request, res: express.Response) => {
     try {
         const careers = await getCareersController();
         res.json(careers);
@@ -65,7 +68,8 @@ export const getCareersHandler = async (req: Request, res: Response) => {
     }
 };
 
-export const getUpdatesHandler = async (req: Request, res: Response) => {
+// FIX: Use express.Request and express.Response to resolve type conflicts.
+export const getUpdatesHandler = async (req: express.Request, res: express.Response) => {
     try {
         const updates = await getUpdatesController();
         res.json(updates);
@@ -74,7 +78,8 @@ export const getUpdatesHandler = async (req: Request, res: Response) => {
     }
 };
 
-export const createInquiryHandler = async (req: Request, res: Response) => {
+// FIX: Use express.Request and express.Response to resolve type conflicts.
+export const createInquiryHandler = async (req: express.Request, res: express.Response) => {
     try {
         const { name, email, subject, message } = req.body;
         if (!email || !message) {
