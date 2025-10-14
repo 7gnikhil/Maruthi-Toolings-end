@@ -1,35 +1,37 @@
 import { Product, Service, CareerPost, Update } from '../types';
-import {
-    getProductsController,
-    getServicesController,
-    getCareersController,
-    getUpdatesController
-} from '../server/controllers/data.controller';
 
 type ProductCategory = 'All' | 'Completed' | 'Ongoing' | 'Tools/Machines';
 
 /**
  * This file acts as the API client for the frontend View.
- * It calls the async "controller" functions to get data from the simulated backend.
+ * It makes real HTTP requests to the backend API endpoints.
  */
 
+const handleResponse = async (response: Response) => {
+    if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+    }
+    return response.json();
+};
+
 export const getProducts = async (category: ProductCategory): Promise<Product[]> => {
-    // In a real app, this would be: return fetch(`/api/products?category=${category}`).then(res => res.json());
-    const data = await getProductsController(category);
-    return data;
+    const response = await fetch(`/api/products?category=${category}`);
+    const data = await handleResponse(response);
+    // Convert date strings from JSON back to Date objects
+    return data.map((p: Product) => ({ ...p, updatedAt: new Date(p.updatedAt) }));
 };
 
 export const getServices = async (): Promise<Service[]> => {
-    const data = await getServicesController();
-    return data;
+    const response = await fetch(`/api/services`);
+    return handleResponse(response);
 };
 
 export const getCareers = async (): Promise<CareerPost[]> => {
-    const data = await getCareersController();
-    return data;
+    const response = await fetch(`/api/careers`);
+    return handleResponse(response);
 };
 
 export const getUpdates = async (): Promise<Update[]> => {
-    const data = await getUpdatesController();
-    return data;
+    const response = await fetch(`/api/updates`);
+    return handleResponse(response);
 };

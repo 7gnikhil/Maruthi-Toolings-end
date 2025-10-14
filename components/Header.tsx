@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Page } from '../types';
 import { NAV_LINKS_LEFT, NAV_LINKS_RIGHT } from '../constants';
@@ -9,7 +10,8 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
-  const NavLink = ({ pageName }: { pageName: Page | string }) => (
+  // FIX: Explicitly type NavLink as React.FC to correctly handle React-specific props like `key`.
+  const NavLink: React.FC<{ pageName: Page | string }> = ({ pageName }) => (
     <button
       onClick={() => setCurrentPage(pageName as Page)}
       className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
