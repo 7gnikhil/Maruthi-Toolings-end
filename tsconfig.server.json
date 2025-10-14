@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "module": "CommonJS",
-    "noEmit": false
+    "noEmit": false,
+    "lib": ["ESNext"]
   },
   "include": ["server.ts", "server"]
 }

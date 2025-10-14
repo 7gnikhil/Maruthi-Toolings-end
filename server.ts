@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import path from 'path';
 import dotenv from 'dotenv';
@@ -11,9 +11,7 @@ dotenv.config();
 // Connect to MongoDB database
 connectDB();
 
-// FIX: Explicitly type `app` as `Express` to ensure correct type inference for its methods, resolving overload errors.
-// Relying on inference as explicit types caused issues.
-const app = express();
+const app: Express = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
@@ -35,9 +33,7 @@ app.use(express.static(clientBuildPath));
 
 // The "catchall" handler: for any request that doesn't match one above,
 // send back React's index.html file.
-// FIX: Explicitly type `req` and `res` to match Express's RequestHandler type.
-// Relying on inference as explicit types caused issues.
-app.get('*', (req, res) => {
+app.get('*', (req: Request, res: Response) => {
   res.sendFile(path.join(clientBuildPath, 'index.html'));
 });
 
