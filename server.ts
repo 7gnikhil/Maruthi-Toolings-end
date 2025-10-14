@@ -4,7 +4,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 // FIX: Import 'fileURLToPath' to help define '__dirname' in an ES module environment.
 import { fileURLToPath } from 'url';
-import { getProductsHandler, getServicesHandler, getCareersHandler, getUpdatesHandler } from './server/controllers/data.controller';
+import { getProductsHandler, getServicesHandler, getCareersHandler, getUpdatesHandler, createInquiryHandler } from './server/controllers/data.controller';
 import { connectDB } from './server/config/db';
 
 // Load environment variables from .env file
@@ -21,6 +21,7 @@ app.use(cors());
 app.use(express.json());
 
 // API Routes
+app.post('/api/inquiry', createInquiryHandler);
 app.get('/api/products', getProductsHandler);
 app.get('/api/services', getServicesHandler);
 app.get('/api/careers', getCareersHandler);

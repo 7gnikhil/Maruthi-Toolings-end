@@ -1,4 +1,4 @@
-import { Product, Service, CareerPost, Update } from '../types';
+import { Product, Service, CareerPost, Update, Inquiry } from '../types';
 
 type ProductCategory = 'All' | 'Completed' | 'Ongoing' | 'Tools/Machines';
 
@@ -33,5 +33,16 @@ export const getCareers = async (): Promise<CareerPost[]> => {
 
 export const getUpdates = async (): Promise<Update[]> => {
     const response = await fetch(`/api/updates`);
+    return handleResponse(response);
+};
+
+export const submitInquiry = async (inquiryData: Partial<Inquiry>): Promise<{ message: string }> => {
+    const response = await fetch(`/api/inquiry`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(inquiryData),
+    });
     return handleResponse(response);
 };

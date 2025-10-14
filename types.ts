@@ -40,3 +40,12 @@ export interface Update {
     description: string;
     date: string;
 }
+
+export interface Inquiry {
+  _id?: string;
+  name?: string;
+  email: string;
+  subject?: string;
+  message: string;
+  createdAt?: Date;
+}

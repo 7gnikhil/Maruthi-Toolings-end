@@ -1,14 +1,28 @@
 import React, { useState } from 'react';
+import { submitInquiry } from '../api/maruthi-toolings.api';
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [statusMessage, setStatusMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInquirySubmit = (e: React.FormEvent) => {
+  const handleInquirySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Thank you for your inquiry!\nEmail: ${email}\nMessage: ${message}`);
-    setEmail('');
-    setMessage('');
+    setIsSubmitting(true);
+    setStatusMessage('');
+
+    try {
+      const response = await submitInquiry({ email, message });
+      setStatusMessage(response.message);
+      setEmail('');
+      setMessage('');
+    } catch (error) {
+      setStatusMessage('Failed to send inquiry. Please try again.');
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -63,9 +77,14 @@ const Footer: React.FC = () => {
                   required
                 ></textarea>
               </div>
-              <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">
-                Send
+              <button 
+                type="submit" 
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300 disabled:bg-gray-500"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Sending...' : 'Send'}
               </button>
+              {statusMessage && <p className="mt-2 text-center text-xs text-gray-300">{statusMessage}</p>}
             </form>
           </div>
         </div>

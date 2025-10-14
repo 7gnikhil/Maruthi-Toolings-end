@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MapPinIcon, EnvelopeIcon, PhoneIcon } from '../components/icons';
+import { submitInquiry } from '../api/maruthi-toolings.api';
 
 const ContactUs: React.FC = () => {
   const [formState, setFormState] = useState({
@@ -8,15 +9,29 @@ const ContactUs: React.FC = () => {
     subject: '',
     message: '',
   });
+  const [statusMessage, setStatusMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Form submitted!\nData: ${JSON.stringify(formState)}`);
-    setFormState({ name: '', email: '', subject: '', message: '' });
+    setIsSubmitting(true);
+    setStatusMessage('');
+
+    try {
+      const response = await submitInquiry(formState);
+      setStatusMessage(response.message);
+      // Clear form on success
+      setFormState({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      setStatusMessage('Failed to send message. Please try again later.');
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -60,9 +75,16 @@ const ContactUs: React.FC = () => {
               </div>
                <input type="text" name="subject" placeholder="Subject" value={formState.subject} onChange={handleChange} className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none" required />
               <textarea name="message" placeholder="Your Message" rows={5} value={formState.message} onChange={handleChange} className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none" required></textarea>
-              <button type="submit" className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-blue-700 transition duration-300">
-                Send Message
-              </button>
+              <div className="text-center">
+                <button 
+                  type="submit" 
+                  className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-blue-700 transition duration-300 disabled:bg-gray-400"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                </button>
+                {statusMessage && <p className="mt-4 text-center text-sm">{statusMessage}</p>}
+              </div>
             </form>
           </div>
         </div>
