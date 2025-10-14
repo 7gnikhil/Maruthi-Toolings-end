@@ -1,5 +1,5 @@
-// FIX: Changed import to a namespace import to resolve type conflicts and ensure correct Express types are used.
-import * as express from 'express';
+// FIX: Changed to a default import for express and named imports for types to resolve type conflicts and ensure correct Express types are used.
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import path from 'path';
 import dotenv from 'dotenv';
@@ -14,7 +14,7 @@ const startServer = async () => {
     // Connect to MongoDB database and wait for it to succeed
     await connectDB();
 
-    const app: express.Express = express();
+    const app = express();
     const PORT = process.env.PORT || 3000;
 
     // Middleware
@@ -32,7 +32,7 @@ const startServer = async () => {
 
     // The "catchall" handler: for any request that doesn't match one above,
     // send back React's index.html file.
-    app.get('*', (req: express.Request, res: express.Response) => {
+    app.get('*', (req: Request, res: Response) => {
       res.sendFile(path.join(clientBuildPath, 'index.html'));
     });
 
