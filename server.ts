@@ -1,8 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+// FIX: Import 'fileURLToPath' to help define '__dirname' in an ES module environment.
+import { fileURLToPath } from 'url';
 import { getProductsHandler, getServicesHandler, getCareersHandler, getUpdatesHandler } from './server/controllers/data.controller';
 import { connectDB } from './server/config/db';
 
@@ -11,10 +12,6 @@ dotenv.config();
 
 // Connect to MongoDB database
 connectDB();
-
-// FIX: __dirname is not available in ES modules, so we define it manually.
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -29,7 +26,13 @@ app.get('/api/services', getServicesHandler);
 app.get('/api/careers', getCareersHandler);
 app.get('/api/updates', getUpdatesHandler);
 
-// Serve static files from the React app build directory
+// FIX: Define __dirname for ES modules, as it's not available by default.
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static files from the React app build directory.
+// In a CommonJS environment, __dirname refers to the directory of the current file.
+// After the build, server.js is located in the 'dist' folder, so __dirname will be 'dist'.
 const clientBuildPath = path.join(__dirname, 'client');
 app.use(express.static(clientBuildPath));
 
