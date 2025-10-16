@@ -8,6 +8,8 @@ import Products from './pages/Products';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
 import Careers from './pages/Careers';
+// FIX: Imported the Services component to render it.
+import Services from './pages/Services';
 import { Page } from './types';
 
 const App: React.FC = () => {
@@ -29,6 +31,9 @@ const App: React.FC = () => {
         return <Products category="End Component" title="End Components" />;
       case 'Tools & Machines':
         return <Products category="Tools/Machines" title="Tools & Machines" />;
+      // FIX: Added a case for 'Services' to render the Services page when selected.
+      case 'Services':
+        return <Services />;
       case 'About Us':
         return <AboutUs />;
       case 'Contact Us':

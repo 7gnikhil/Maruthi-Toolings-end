@@ -38,7 +38,7 @@ const AboutUs: React.FC = () => {
               </div>
               <div className="bg-gray-50 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold text-blue-700 mb-2">Technology</h3>
-                <p className="text-gray-600">State-of-the-art CNC and EDM machinery for ultimate precision.</p>
+                <p className="text-gray-600">Our workshop is equipped with multi-axis CNC milling centers and high-precision EDM machines for ultimate precision.</p>
               </div>
               <div className="bg-gray-50 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold text-blue-700 mb-2">Commitment to Quality</h3>

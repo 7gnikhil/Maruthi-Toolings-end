@@ -6,7 +6,7 @@ const productSchema: Schema = new Schema({
   category: {
     type: String,
     required: true,
-    enum: ['Completed', 'Ongoing', 'Tools/Machines'],
+    enum: ['End Component', 'Tools/Machines'],
   },
   description: { type: String, required: true },
   imageUrl: { type: String, required: true },

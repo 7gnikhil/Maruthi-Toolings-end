@@ -1,5 +1,5 @@
-// FIX: Switched to named imports for Request and Response from Express to resolve type errors on `req.body` and `res.status`.
-import { Request, Response } from 'express';
+// FIX: Switched to a namespace import for Express (`import express from 'express'`) and used `express.Request` and `express.Response` to resolve global type conflicts for Express's Request and Response objects.
+import express from 'express';
 import InquiryModel from '../models/inquiry.model';
 
 /**
@@ -7,7 +7,7 @@ import InquiryModel from '../models/inquiry.model';
  * It handles saving contact inquiries to the database.
  */
 
-export const createInquiryHandler = async (req: Request, res: Response) => {
+export const createInquiryHandler = async (req: express.Request, res: express.Response) => {
     try {
         const { name, email, subject, message } = req.body;
         if (!email || !message) {
