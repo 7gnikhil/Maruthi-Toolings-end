@@ -1,6 +1,6 @@
 // FIX: Separated the Express default import from the type imports (`Request`, `Response`) to resolve type conflicts that were causing errors with `app.post`, `app.use`, and `res.sendFile`.
-import express from 'express';
-import type { Request, Response } from 'express';
+// FIX: Consolidated Express imports to correctly type the app and its handlers, resolving overload errors.
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
