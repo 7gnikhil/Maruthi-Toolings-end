@@ -1,6 +1,5 @@
-// FIX: Separated the Express default import from the type imports (`Request`, `Response`) to resolve type conflicts that were causing errors with `app.post`, `app.use`, and `res.sendFile`.
-// FIX: Consolidated Express imports to correctly type the app and its handlers, resolving overload errors.
-import express, { Request, Response } from 'express';
+// FIX: Changed Express import to a namespace import to resolve type conflicts, which was causing errors with app.post, app.use, and res.sendFile.
+import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -39,7 +38,7 @@ const startServer = async () => {
 
     // The "catchall" handler: for any request that doesn't match one above,
     // send back React's index.html file.
-    app.get('*', (req: Request, res: Response) => {
+    app.get('*', (req: express.Request, res: express.Response) => {
       res.sendFile(path.join(clientBuildPath, 'index.html'));
     });
 
