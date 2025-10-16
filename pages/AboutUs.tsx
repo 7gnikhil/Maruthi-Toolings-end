@@ -8,23 +8,23 @@ const AboutUs: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-center text-blue-800 mb-4">About Maruthi Toolings</h1>
           <p className="text-lg text-gray-600 text-center mb-12">
-            Pioneering precision in plastic injection mould manufacturing for over two decades.
+            Building a legacy of precision in plastic injection mould manufacturing for over 8 years.
           </p>
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <img 
-              src="https://picsum.photos/seed/teamwork/600/400" 
-              alt="Our Team"
+              src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1974&auto=format&fit=crop" 
+              alt="Our Team discussing a project"
               className="rounded-lg shadow-xl"
             />
             <div>
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">Our Mission</h2>
               <p className="text-gray-700 mb-6">
-                To be the leading provider of high-quality, cost-effective injection moulding solutions. We are committed to innovation, precision engineering, and unparalleled customer service, helping our clients bring their ideas to life with efficiency and reliability.
+                To deliver superior plastic injection moulding solutions through dedicated craftsmanship, technical expertise, and a client-first approach. We empower our partners to achieve their manufacturing goals with reliable, high-performance tooling.
               </p>
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">Our Vision</h2>
               <p className="text-gray-700">
-                To drive industrial progress by setting new benchmarks in manufacturing excellence. We envision a future where our advanced tooling solutions empower industries globally, fostering sustainable growth and technological advancement.
+                To be the most trusted partner for complex and critical injection moulds in the automotive, pharmaceutical, and consumer goods industries, known for our unwavering commitment to quality and innovation.
               </p>
             </div>
           </div>
@@ -34,15 +34,15 @@ const AboutUs: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
               <div className="bg-gray-50 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold text-blue-700 mb-2">Expertise</h3>
-                <p className="text-gray-600">20+ years of industry experience and a highly skilled team.</p>
+                <p className="text-gray-600">8+ years of hands-on experience and a dedicated, highly skilled team.</p>
               </div>
               <div className="bg-gray-50 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold text-blue-700 mb-2">Technology</h3>
-                <p className="text-gray-600">State-of-the-art machinery for ultimate precision.</p>
+                <p className="text-gray-600">State-of-the-art CNC and EDM machinery for ultimate precision.</p>
               </div>
               <div className="bg-gray-50 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold text-blue-700 mb-2">Quality</h3>
-                <p className="text-gray-600">ISO 9001:2015 certified processes and rigorous checks.</p>
+                <h3 className="text-xl font-semibold text-blue-700 mb-2">Commitment to Quality</h3>
+                <p className="text-gray-600">Rigorous in-house checks and dimensional analysis on every component.</p>
               </div>
             </div>
           </div>

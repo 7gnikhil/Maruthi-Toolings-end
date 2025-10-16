@@ -6,7 +6,6 @@ import UpdatesSection from './components/UpdatesSection';
 import Footer from './components/Footer';
 import Products from './pages/Products';
 import AboutUs from './pages/AboutUs';
-import Services from './pages/Services';
 import ContactUs from './pages/ContactUs';
 import Careers from './pages/Careers';
 import { Page } from './types';
@@ -21,21 +20,17 @@ const App: React.FC = () => {
           <>
             <Banner />
             <UpdatesSection />
-            <Products category="Completed" title="Our Flagship Components" />
+            <Products category="End Component" title="Our Flagship Components" />
           </>
         );
       case 'Products':
         return <Products category="All" title="All Products" />;
-      case 'Completed Components':
-        return <Products category="Completed" title="Completed Components" />;
-      case 'Ongoing Components':
-        return <Products category="Ongoing" title="Ongoing Components" />;
+      case 'End Components':
+        return <Products category="End Component" title="End Components" />;
       case 'Tools & Machines':
         return <Products category="Tools/Machines" title="Tools & Machines" />;
       case 'About Us':
         return <AboutUs />;
-      case 'Services':
-        return <Services />;
       case 'Contact Us':
         return <ContactUs />;
       case 'Careers':

@@ -1,16 +1,16 @@
+
 import React from 'react';
 import { MOCK_PRODUCTS_DB } from '../api/mock-data';
 import { Product as ProductType } from '../types';
 
 interface ProductsProps {
-  category: 'All' | 'Completed' | 'Ongoing' | 'Tools/Machines';
+  category: 'All' | 'End Component' | 'Tools/Machines';
   title: string;
 }
 
 const ProductCard: React.FC<{ product: ProductType }> = ({ product }) => {
   const categoryColor = {
-    Completed: 'bg-green-100 text-green-800',
-    Ongoing: 'bg-yellow-100 text-yellow-800',
+    'End Component': 'bg-green-100 text-green-800',
     'Tools/Machines': 'bg-blue-100 text-blue-800',
   };
 

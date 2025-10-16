@@ -1,10 +1,17 @@
 // FIX: Changed to a default import for express and named imports for types to resolve type conflicts and ensure correct Express types are used.
+// FIX: Added imports for process, path, and url to resolve runtime variable errors in an ES Module context.
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+import process from 'process';
 import { createInquiryHandler } from './server/controllers/data.controller';
 import { connectDB } from './server/config/db';
+
+// FIX: Manually define __dirname for ES module scope, as it's not available by default.
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const startServer = async () => {
   try {
@@ -42,6 +49,7 @@ const startServer = async () => {
 
   } catch (error) {
     console.error("Failed to start server:", error);
+    // FIX: Explicitly importing 'process' ensures process.exit is correctly typed and available.
     process.exit(1);
   }
 };
